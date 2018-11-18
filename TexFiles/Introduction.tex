@@ -1,0 +1,48 @@
+\section{Basics}
+
+\begin{frame}
+	\frametitle{Problem(s)}
+	to do: What are the problems we need to adress
+\end{frame}
+
+\begin{frame}
+	\frametitle{Commitments}
+	\begin{itemize}
+		\item A \textbf{commits} to B
+		\item B keeps commitment, is unable to read or process it
+		\item A reveals to B
+		\item B can verify the commitment 
+	\end{itemize}
+TODO: Image
+\end{frame}
+
+\begin{frame}
+	\frametitle{Attributes}
+	\begin{enumerate}
+		\item \textbf{Binding:} The Values Alice put in the Commitment cannot be changed after B recieved it 
+		\item \textbf{Hiding:} Bob cannot gain any information about the message from the commitment itself
+	\end{enumerate}
+	Additional for \textit{real-life-applications}:
+	\begin{enumerate}
+		\item Bob's are able compare commitments
+		\item Commitments are \textit{tradeable}
+	\end{enumerate}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Applications}
+	\begin{columns}
+		\begin{column}{0.5\textwidth}
+			\textbf{\textit{Lean}-Login:} ~\newline
+			You're able to access your Youtube-Account and favorites without login, but if you want to change your credentials you need to authenticate
+			~\newline 
+			this is done storing the commitment of your login in a cookie 
+		\end{column}
+		\begin{column}{0.5\textwidth}
+			\textbf{JSON-Web-Tokens (JWT):} ~\newline
+			A payload (e.g. some account details) are encrypted to a commitment and passed to a third party. ~\newline 
+			You can verify yourself at the third-party revealing the commitment ~\newline 
+			this is done \textit{automatic} via session or systemattributes 
+		\end{column}
+	\end{columns}
+\end{frame}

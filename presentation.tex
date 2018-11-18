@@ -1,0 +1,35 @@
+\documentclass[9pt,a4paper,titlepage,oneside,mathserif,serif]{beamer}
+\usepackage[latin1]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+
+\author{Leonhard Applis}
+\title{Commitment-Schemes}
+\institute{TH Nürnberg} % (optional)
+\date{XX.XX.XXXX}
+\subject{KryptographischeProtokolle}
+
+\usetheme{PaloAlto}
+%% \usecolortheme{beaver}
+\AtBeginSection[]
+{
+\begin{frame}
+	\frametitle{Table of Contents}
+	\tableofcontents[currentsection,currentsubsection]
+\end{frame}
+}
+%%------------------ for longer presentations required
+\pgfmathsetmacro{\progress}{\insertframestartpage/\inserttotalframenumber}
+
+\begin{document}
+\frame{\titlepage}
+\include{TexFiles/Introduction}
+\include{TexFiles/HashBased}
+\include{TexFiles/Binary}
+\include{TexFiles/DiscreteLogarithm}
+\include{TexFiles/Applications}
+\include{TexFiles/Summary}
+
+\end{document}

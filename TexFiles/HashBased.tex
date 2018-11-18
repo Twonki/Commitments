@@ -1,0 +1,37 @@
+\section{Hash-Based}
+\begin{frame}
+	\frametitle{Hash-Based Commitments}
+	\framesubtitle{General Concept}
+	
+	\begin{enumerate}
+		\item Alice produces $h = Hash(m)$ and sends Bob $h$ and $Hash$
+		\item Bob keeps $h$ and $Hash$
+		\item Alice reveals herself by sending Bob $m$
+		\item Bob checks if $Hash(m) \equiv h$
+	\end{enumerate}
+	
+\end{frame}
+
+\begin{frame}
+	\frametitle{Hash-Based Commitments}
+	\framesubtitle{Problem: unlimited range - limited domain}
+	Usually: Bob (and Eve) are not able to \textit{guess} $m$ from $h$ and $Hash$
+	~\newline ~\newline
+	But: if the \textit{plausible domain} of $m$ is known, its possible for modern computers to brute force reveal your $m$ 
+	
+	~\newline ~\newline 
+	Example: Alice commits to Bob about the result of a soccer game Germany vs. Brazil. ~\newline Therefore she chooses a score of 0:7 and sends Bob $h = SHA_3(str(0:7))$ and the Hashfunction $SHA_3$ ~\newline Eve catches the commitment and knows the context of the soccer game. ~\newline she can know try reasonable combinations of results from 0:0 up to 20:20. She only needs to try $20 \cdot 20 = 400$ results 
+\end{frame}
+
+\begin{frame}
+	\frametitle{Hash-Based Commitments}
+	\framesubtitle{Salting the Hash}
+	Improved Concept: 
+	\begin{itemize}
+		\item Alice chooses a random value $s$
+		\item Alice produces $h = Hash(m,s)$ and sends $h$ and $Hash$ to Bob
+		\item Bob keeps $h$ and $Hash$
+		\item Alice reveals herself by sending bob $m$ and $s$
+		\item Bob checks if $Hash(m,s) \equiv h$
+	\end{itemize}
+\end{frame}
