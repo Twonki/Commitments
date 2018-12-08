@@ -16,13 +16,13 @@
 
 \begin{frame}
 	\frametitle{Implementation}
-	\begin{itemize}
+	\begin{enumerate}
 		\item Alice requests $p,q,g,v$ from Bob. Alice check that $q,p$ are primes, q divides p-1, that g and v are valid elements. 
 		\item Alice chooses her message $m \in \{1..p\}$ and a random number $r \in \{1..q-1\}$
 		\item Alice sends $c = g^rv^m$ to Bob \textbf{(commit)}
 		\item Bob keeps $<Alice,c,<p,q,g,v>>$
 		\item Alice can reveal herself by sending $r,m$ to Bob. Bob checks $c = g^rv^m$
-	\end{itemize}
+	\end{enumerate}
 \end{frame}
 
 \begin{frame}

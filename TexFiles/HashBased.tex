@@ -37,13 +37,15 @@
 	\frametitle{Hash-Based Commitments}
 	\framesubtitle{Salting the Hash}
 	Improved Concept: 
-	\begin{itemize}
-		\item Alice chooses a random value $s$
-		\item Alice produces $h = Hash(m,s)$ and sends $h$ and $Hash$ to Bob
-		\item Bob keeps $h$ and $Hash$
-		\item Alice reveals herself by sending bob $m$ and $s$
-		\item Bob checks if $Hash(m,s) \equiv h$
-	\end{itemize}
+	\begin{LARGE}
+		\begin{enumerate}
+			\item Alice chooses a random value $s$
+			\item Alice produces $h = Hash(m,s)$ and sends $h$ and $Hash$ to Bob
+			\item Bob keeps $h$ and $Hash$
+			\item Alice reveals herself by sending bob $m$ and $s$
+			\item Bob checks if $Hash(m,s) \equiv h$
+		\end{enumerate}
+	\end{LARGE}
 \end{frame}
 
 \begin{frame}
