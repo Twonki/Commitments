@@ -46,7 +46,7 @@
 \begin{frame}
 	\frametitle{Quadratic Residues}
 	\framesubtitle{Protocoll}
-	\begin{LARGE}
+	\begin{Large}
 		\begin{enumerate}
 			\item Alice chooses primes $p,q$ and an element $v \in \{ x \in \mathbf{Z}_n | (\dfrac{x}{n}) = 1\}$ 
 			\item Alice commits to a bit b by choosing a random numer $r$ and sending Bob: $n,v$ and $c = r^2\cdot v^b$
@@ -54,7 +54,7 @@
 			\item Alice reveals herself by sending Bob $p,q,r,b$
 			\item Bob verifies that $p,q$ are primes, $n=pq$ and $c=r^2\cdot v^b$ 
 		\end{enumerate}
-	\end{LARGE}
+	\end{Large}
 ~\newline
 If A wants to commit a quadratic residue, she chooses a quadratic $v$ and $b=1$, therefore $r^2 \cdot v^1$ will be quadratic ~\newline
 If a wants to commit a non-quadratic value, she chooses a nonquadratic $v$ and $b=0$, therefore $r^2 \cdot v^0 = r^2$ which is quadratic

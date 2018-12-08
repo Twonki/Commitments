@@ -3,26 +3,30 @@
 	\frametitle{Discrete Logarithm - Pedersen commitment scheme}
 	\framesubtitle{Requirements and Definitions}
 	Prerequisites: Bob needs to setup the environtment for alice, by 
-	\begin{enumerate}
-		\item choosing a large prime number p
-		\item choosing a smaller prime number $q \in \{1..p| q\div (p-1) = 0\}$
-		\item choosing $g,v \in G_q \neq 1$
-		\item sending Alice $p,q,g,v$ 
-	\end{enumerate}
-
+	\begin{Large}
+		\begin{enumerate}
+			\item choosing a large prime number p
+			\item choosing a smaller prime number $q \in \{1..p| q\div (p-1) = 0\}$
+			\item choosing $g,v \in G_q \neq 1$
+			\item sending Alice $p,q,g,v$ 
+		\end{enumerate}
+	\end{Large}
+	~\newline
 	Now Alice can \textit{build} the exact same group and subgroup like Bob. ~\newline
 	This is similiar to sending the hash-function.  
 \end{frame}
 
 \begin{frame}
 	\frametitle{Implementation}
-	\begin{enumerate}
-		\item Alice requests $p,q,g,v$ from Bob. Alice check that $q,p$ are primes, q divides p-1, that g and v are valid elements. 
-		\item Alice chooses her message $m \in \{1..p\}$ and a random number $r \in \{1..q-1\}$
-		\item Alice sends $c = g^rv^m$ to Bob \textbf{(commit)}
-		\item Bob keeps $<Alice,c,<p,q,g,v>>$
-		\item Alice can reveal herself by sending $r,m$ to Bob. Bob checks $c = g^rv^m$
-	\end{enumerate}
+	\begin{Large}
+			\begin{enumerate}
+			\item Alice requests $p,q,g,v$ from Bob. Alice check that $q,p$ are primes, q divides p-1, that g and v are valid elements. 
+			\item Alice chooses her message $m \in \{1..p\}$ and a random number $r \in \{1..q-1\}$
+			\item Alice sends $c = g^rv^m$ to Bob \textbf{(commit)}
+			\item Bob keeps $<Alice,c,<p,q,g,v>>$
+			\item Alice can reveal herself by sending $r,m$ to Bob. Bob checks $c = g^rv^m$
+		\end{enumerate}
+	\end{Large}
 \end{frame}
 
 \begin{frame}
