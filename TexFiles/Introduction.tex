@@ -1,7 +1,8 @@
 \section{Basics}
 
 \begin{frame}
-	\frametitle{Introduction}
+	\frametitle{Commitments}
+	\framesubtitle{Introduction}
 	\begin{columns}
 		\begin{column}{0.5\textwidth}
 			\begin{figure}
@@ -34,8 +35,8 @@
 				\begin{itemize}
 					\item A \textbf{commits} to B
 					\item B keeps commitment, unable to read or process it
-					\item A reveals to B
-					\item B can verify the commitment 
+					\item A \textbf{reveals} to B
+					\item B verifies the commitment 
 				\end{itemize}
 			\end{LARGE}
 		\end{column}
@@ -51,7 +52,8 @@
 \end{frame}
 
 \begin{frame}
-	\frametitle{Attributes}
+	\frametitle{Commitments}
+	\framesubtitle{Attributes}
 	\begin{enumerate}
 		\item \textbf{Binding:} The Values Alice put in the Commitment cannot be changed after B recieved it 
 		\item \textbf{Hiding:} Bob cannot gain any information about the message from the commitment itself
@@ -59,13 +61,14 @@
 	\end{enumerate}
 	Additional for \textit{real-life-applications}:
 	\begin{enumerate}
-		\item Bob's are able compare commitments
-		\item Commitments are \textit{tradeable}
+		\item Bobs are able compare commitments
+		\item Commitments are \textit{tradeable} and replicable
 	\end{enumerate}
 \end{frame}
 
 \begin{frame}
-	\frametitle{Applications}
+	\frametitle{Commitments}
+	\framesubtitle{Applications}
 	\begin{columns}
 		\begin{column}{0.5\textwidth}
 			\textbf{Challenge and Response} ~\newline
@@ -73,7 +76,7 @@
 		\end{column}
 		\begin{column}{0.5\textwidth}
 			\textbf{JSON-Web-Tokens (JWT):} ~\newline
-			A payload (e.g. some account details) are encrypted to a commitment and passed to a third party. ~\newline 
+			A payload (e.g. some account details) are encrypted and linked to a commitment and passed to a third party. ~\newline 
 			You can verify yourself at the third-party revealing the commitment ~\newline 
 			this is done \textit{automatic} via session or systemattributes 
 		\end{column}

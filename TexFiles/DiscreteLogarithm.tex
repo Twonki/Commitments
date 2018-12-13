@@ -17,20 +17,27 @@
 \end{frame}
 
 \begin{frame}
-	\frametitle{Implementation}
+	\frametitle{Discrete Logarithm - Pedersen commitment scheme}
+	\framesubtitle{Implementation}
 	\begin{Large}
 			\begin{enumerate}
-			\item Alice requests $p,q,g,v$ from Bob. Alice check that $q,p$ are primes, q divides p-1, that g and v are valid elements. 
+			\item Alice requests $p,q,g,v$ from Bob. \newline Alice checks that:
+			\begin{itemize}
+				\item $q,p$ are primes, 
+				\item q divides p-1, 
+				\item that $g,v \in G_q$. 
+			\end{itemize}
 			\item Alice chooses her message $m \in \{1..p\}$ and a random number $r \in \{1..q-1\}$
 			\item Alice sends $c = g^rv^m$ to Bob \textbf{(commit)}
 			\item Bob keeps $<Alice,c,<p,q,g,v>>$
-			\item Alice can reveal herself by sending $r,m$ to Bob. Bob checks $c = g^rv^m$
+			\item Alice can reveal herself by sending $r,m$ to Bob. ~\newline Bob checks $c = g^rv^m$
 		\end{enumerate}
 	\end{Large}
 \end{frame}
 
 \begin{frame}
-	\frametitle{Benefits}
+	\frametitle{Discrete Logarithm - Pedersen commitment scheme}
+	\framesubtitle{Benefits}
 	Major:
 	\begin{itemize}
 		\item Commitments always contain random parts
@@ -38,7 +45,7 @@
 	\end{itemize}
 	Minor:
 	\begin{itemize}
-		\item tupels are smaller to store than hashes
+		\item tupels are (usually) smaller to store than hashes
 		\item $p,q,g,v$ are easily changed/renewed (you could not renew hashfunctions)
 	\end{itemize}
 \end{frame}

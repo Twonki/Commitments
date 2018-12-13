@@ -14,29 +14,41 @@
 	
 	\textbf{The only way to check if x is quadratic in n, is to check if its quadratic for p and q!}
 \end{frame}
-
+\begin{frame}
+	\frametitle{Quadratic Residues}
+	\framesubtitle{Legendre Symbol}
+	Required: Legendre-Symbol $(\dfrac{x}{p}) = x^{p-1} mod(p)$ ~\newline ~\newline
+	\begin{center}
+	$x~is~quadratic~in~p \iff (\dfrac{x}{p})=1 \land p \in Primes$ ~\newline ~\newline
+\end{center}
+	n is not a prime, so the legendre symbol does not tell if x is quadratic! ~\newline 
+	The only way to check is to check p and q: ~\newline 
+	\begin{center}
+	$ n = p\cdot q \rightarrow \big((x~is~quadratic~in~n \iff (\dfrac{x}{p})=1 \land (\dfrac{x}{q})=1\big)$ ~\newline ~\newline
+\end{center}
+	
+	Additional we\footnote{the proof is left for the reader} can show that: $(\dfrac{x}{n}) = (\dfrac{x}{p}) \cdot (\dfrac{x}{q})$ 
+\end{frame}
 \begin{frame}
 	\frametitle{Quadratic Residues}
 	\framesubtitle{Jakobi-Matrizes}
-	Required: Legendre-Symbol $(\dfrac{x}{p}) = x^{p-1} mod(p)$ ~\newline ~\newline
-%	\begin{center}
-%		$(\dfrac{x}{n} ) = (\dfrac{x}{p}) \cdot (\dfrac{x}{q})$ ~\newline ~\newline
-%	\end{center}
-	\begin{center}
+	\begin{LARGE}
+		\begin{center}
 			\begin{tabular}{|c|c|c|c|}
-			\hline 
-			$(\dfrac{x}{p})$&$(\dfrac{x}{q})$ &$(\dfrac{x}{n})$& quadratic \\ 
-			\hline 
-			1 & 1  & 1  & yes \\ 
-			\hline 
-			1 & -1  & -1  & no \\ 
-			\hline 	
-			-1 & 1  & -1  & no \\ 
-			\hline 	
-			-1 & -1  & 1  & no \\ 
-			\hline 
-		\end{tabular} 
-	\end{center}
+				%%\hline 
+				$(\dfrac{x}{p})$&$(\dfrac{x}{q})$ &$(\dfrac{x}{n})$& quadratic \\ 
+				\hline 
+				1 & 1  & 1  & yes \\ 
+				\hline 
+				1 & -1  & -1  & no \\ 
+				\hline 	
+				-1 & 1  & -1  & no \\ 
+				\hline 	
+				-1 & -1  & 1  & no \\ 
+				\hline 
+			\end{tabular} 
+		\end{center}
+	\end{LARGE}
 ~\newline ~\newline
 	given X and guessing we have 75\% cases where it's not quadratic. 
 	~\newline ~\newline
@@ -50,12 +62,13 @@
 		\begin{enumerate}
 			\item Alice chooses primes $p,q$ and an element $v \in \{ x \in \mathbf{Z}_n | (\dfrac{x}{n}) = 1\}$ 
 			\item Alice commits to a bit b by choosing a random numer $r$ and sending Bob: $n,v$ and $c = r^2\cdot v^b$
-			\item Bob verifies that $(\dfrac{v}{n})=1$ and keeps it
+			\item Bob verifies that $(\dfrac{v}{n})=1$ and keeps $<Alice,n,v,c>$
 			\item Alice reveals herself by sending Bob $p,q,r,b$
 			\item Bob verifies that $p,q$ are primes, $n=pq$ and $c=r^2\cdot v^b$ 
 		\end{enumerate}
 	\end{Large}
 ~\newline
 If A wants to commit a quadratic residue, she chooses a quadratic $v$ and $b=1$, therefore $r^2 \cdot v^1$ will be quadratic ~\newline
-If a wants to commit a non-quadratic value, she chooses a nonquadratic $v$ and $b=0$, therefore $r^2 \cdot v^0 = r^2$ which is quadratic
+If a wants to commit a non-quadratic value, she chooses a nonquadratic $v$ and $b=0$, therefore $r^2 \cdot v^0 = r^2$ which is quadratic ~\newline
+If $v$'s quadracy and $b$ do not match, $c$ won't be quadratic and therefore rejected
 \end{frame}

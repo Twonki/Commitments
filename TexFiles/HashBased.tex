@@ -5,7 +5,7 @@
 	\begin{LARGE}
 		\begin{enumerate}
 			\item Alice produces $h = Hash(m)$ and sends Bob $h$ and $Hash$
-			\item Bob keeps $h$ and $Hash$
+			\item Bob keeps $<Alice,h,Hash>$
 			\item Alice reveals herself by sending Bob $m$
 			\item Bob checks if $Hash(m) \equiv h$
 		\end{enumerate}
@@ -17,7 +17,8 @@
 \end{frame}
 
 \begin{frame}
-	\frametitle{Fullfillment of Attributes}
+	\frametitle{Hash-Based Commitments}
+	\framesubtitle{Fullfillment of Attributes}
 	\begin{LARGE}
 	\textbf{Hiding:} because of the Hash-functions \textbf{Pre-Image resistance}, it's nearly impossible to find the message m from the hash. This holds true for any Bob and any Eve. ~\newline ~\newline
 	\textbf{Binding:} because of the Hash-functions \textbf{collision-resistance}, it's nearly impossible to find another message m with the same hash.
@@ -43,7 +44,7 @@
 		\begin{enumerate}
 			\item Alice chooses a random value $s$
 			\item Alice produces $h = Hash(m,s)$ and sends $h$ and $Hash$ to Bob
-			\item Bob keeps $h$ and $Hash$
+			\item Bob keeps $<Alice,h,Hash>$
 			\item Alice reveals herself by sending bob $m$ and $s$
 			\item Bob checks if $Hash(m,s) \equiv h$
 		\end{enumerate}
@@ -51,15 +52,16 @@
 \end{frame}
 
 \begin{frame}
-	\frametitle{Addition}
+	\frametitle{Hash-Based Commitments}
+	\framesubtitle{Addition}
 	\textbf{Alice is anonymus}. She never stated her name, used certificates, etc. \newline
 	Alice can produce as many commitments for as many personas as she wants.  
 	~\newline ~\newline
 	For increased security: 
 	\begin{itemize}
 		\item commitments should be one-use only
-		\item commitments should have a lifetime
-		\item traded commitments to a third Party should revealed directly with first reveal
-		\item messages must be chosen random
+		\item commitments should have a lifetime (in time and/or tries)
+		\item traded commitments to a third party should be deprecated directly with first reveal
+		\item messages must contain random parts
 	\end{itemize}
 \end{frame}
