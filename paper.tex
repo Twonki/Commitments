@@ -25,14 +25,11 @@ The aim of commitment schemes is to provide a mechanism for Party A to commit to
 ~\newline This Paper first introduces to the topic itself, a hash-based implementation and the \textit{pedersen-commitments} which are based on the discrete logarithm. In Conclusion a Case-study of commitments for one-time authorization in a distributed web-application is provided. 
 \end{abstract}
 
-%\begin{IEEEkeywords}
-%component, formatting, style, styling, insert
-%\end{IEEEkeywords}
-
 \section{Introduction}
-ToDo: IntroText // Motivation
-\subsection{Protocol}
+The Internet is a land of mistrust - for good reasons. Yet it is often required to trust each other. 
 
+\subsection{Protocol}
+The following steps are considered the basic protocol of commitment-schemes and vary only in their implementation. Often the protocol is shortened to only two steps, the commitment and the reveal (step 1 and 3), as these are the only steps requiring communication. This shortened version is also depicted in figure \ref{fig:protocoll}.  
 \begin{enumerate}
 	\item A \textbf{commits} to B
 	\item B keeps commitment, unable to read or process it
@@ -48,17 +45,19 @@ ToDo: IntroText // Motivation
 \end{figure}
 
 \subsection{Attributes}
-ToDo: Copy from Presentation but with sources
+The following attributes are required for commitment-schemes to be secure and successfully fulfill their purpose.
 
 \begin{enumerate}
-	\item \textbf{Binding:} The Values Alice put in the Commitment cannot be changed after B recieved it 
+	\item \textbf{Binding:} The values Alice put in the commitment cannot be changed after Bob recieved it 
 	\item \textbf{Hiding:} Bob cannot gain any information about the message from the commitment itself
 	\item \textbf{Viability:} If both parties follow the protocol correct, Bob is always able to recover the committed value
 \end{enumerate}
-There are two additional attributes originating from the fact that we are working with computers:
+Except for viability, the fulfillment of each attribute will be shortly discussed in the regarding implementations. 
+
+There are two additional attributes based on the fact that we are working with computers:
 \begin{enumerate}
 	\item Bobs are able compare commitments.
-	\item Commitments are \textit{tradeable} and replicable - both for Alice and Bob, still keeping their primary Attributes and are fully functional. This Attribute is later used in the case study \ref{sec:casestudy}.
+	\item Commitments are \textit{tradeable} and replicable - both for Alice and Bob, still keeping their primary attributes and are fully functional. This attribute is vital for the case study presented in section \ref{sec:casestudy}.
 \end{enumerate}
 
 
