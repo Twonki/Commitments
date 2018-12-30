@@ -1,0 +1,39 @@
+
+\section{Implementation}
+
+\subsection{Hash-Based Commitments}
+ToDo: Hash-Based Commitments with sources
+	
+	\begin{enumerate}
+		\item Alice chooses a random value $s$
+		\item Alice produces $h = Hash(m \star s)$ and sends $h$ and $Hash$ to Bob
+		\item Bob keeps $<Alice,h,Hash>$
+		\item Alice reveals herself by sending bob $m$ and $s$
+		\item Bob checks if $Hash(m \star s) \equiv h$
+	\end{enumerate}
+
+\subsection{Pedersen Commitments}
+ToDo: Pedersen Commitments with sources
+SetUp:
+	\begin{enumerate}
+		\item choosing a large prime number p
+		\item choosing a smaller prime number $q \in \{1..p| q\div (p-1) = 0\}$
+		\item choosing $g,v \in G_q \neq 1$
+		\item sending Alice $p,q,g,v$ 
+	\end{enumerate}
+Protocoll: 
+	\begin{enumerate}
+		\item Alice requests $p,q,g,v$ from Bob. \newline Alice checks that:
+		\begin{itemize}
+			\item $q,p$ are primes, 
+			\item q divides p-1, 
+			\item that $g,v \in G_q$. 
+		\end{itemize}
+		\item Alice chooses her message $m \in \{1..p\}$ and a random number $r \in \{1..q-1\}$
+		\item Alice sends $c = g^rv^m$ to Bob \textbf{(commit)}
+		\item Bob keeps $<Alice,c,<p,q,g,v>>$
+		\item Alice can reveal herself by sending $r,m$ to Bob. ~\newline Bob checks $c = g^rv^m$
+	\end{enumerate}
+
+\subsection{Quadratic-Residues}
+Iff i need more content
