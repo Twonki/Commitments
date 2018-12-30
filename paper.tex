@@ -1,6 +1,4 @@
 \documentclass[conference]{IEEEtran}
-%\IEEEoverridecommandlockouts
-% The preceding line is only needed to identify funding in the first footnote. If that is unneeded, please comment it out.
 \usepackage{cite}
 \usepackage{amsmath,amssymb,amsfonts}
 \usepackage{algorithmic}
@@ -12,7 +10,6 @@
 \begin{document}
 
 \title{Commitment Schemes}
-
 \author{Leonhard Applis}
 
 \maketitle
@@ -26,7 +23,21 @@ The aim of commitment schemes is to provide a mechanism for Party A to commit to
 \end{abstract}
 
 \section{Introduction}
-The Internet is a land of mistrust - for good reasons. Yet it is often required to trust each other. 
+The Internet is a land of mistrust for good reasons, yet it's often required to trust each other. 
+
+A common example for the use of commitment-schemes is the \textit{coin-toss via telephone}: Alice declares her call, and Bob tosses the coin. However, Alice is unable to \textit{see} the real coin-toss and relies on Bobs righteousness - which is a pretty bad idea. 
+
+Evil Bobs can simply declare the wrong toss for Alice' call, making her loose every single time. Overall Bob can manipulate the outcome easily by choice with his knowledge of Alice' call. 
+
+Therefore Alice needs to hide her prediction. A simple way of \textit{saving} Alice from manipulation is that Alice declares her call \textit{after} Bob announces the coin-toss-outcome. Needless to say, now Alice is in the position to make her calls in her favor every time, which is not acceptable for Bob. 
+
+~\newline Commitment-schemes enable both parties to a \textit{fair-play} and tools to detect manipulation creating relative trust. In a successful commitment, Alice hides her guess with kryptographic measures and sends it to Bob. Bob then declares the coin-toss to Alice, without knowledge of her call. At this point Alice knows, if she has won or lost, and enables Bob to read her guess by sending the required keys for decryption.
+
+At this point both parties know the \textit{real} outcome and the real winner of the coin toss. The measures if any manipulation is detected are beyond this protocol.
+
+~\newline There are several cases where commitment-schemes are commonly used, for example in \textit{challenge and response}-authentication, whereof a simple example is provided at the end of this paper in section \ref{sec:casestudy}.
+
+Also, other higher protocols require commitments, such as \textit{secret-sharing}. Unfortunately these protocols are out of scope for this paper. 
 
 \subsection{Protocol}
 The following steps are considered the basic protocol of commitment-schemes and vary only in their implementation. Often the protocol is shortened to only two steps, the commitment and the reveal (step 1 and 3), as these are the only steps requiring communication. This shortened version is also depicted in figure \ref{fig:protocoll}.  
