@@ -23,7 +23,13 @@ The following steps are considered the basic protocol of commitment-schemes and 
 	\item A \textbf{reveals} to B
 	\item B verifies the commitment 
 \end{enumerate}
+To elaborate this protocol, we use another common picture as shown in figure \ref{fig:protocoll}: putting a message in an unbreakable, non-transparent and locked box (shown in the \textit{setup-step} of the figure).
 
+For \textit{step 1} of the protocol, Alice \textbf{commits} the box to Bob. Bob cannot see or alter the message inside the box. Picking up the example of the \textit{coin-toss via telephone}, after \textit{step 2} Bob would announce the outcome to Alice.
+ 
+For \textit{step 3} of the protocol, Alice \textbf{reveals} the commitment to Bob, sending him the key for the box (and commonly sending the message as well, proving that she is not only in possession of the key but also the secret itself). 
+
+If the key \textit{fits}, Bob is able to unlock the box in \textit{step 4} and compare the message provided by Alice with the message found in the box. 
 \begin{figure}
 	\centering
 	\includegraphics[width=0.8\linewidth]{Images/protocoll}
@@ -32,7 +38,7 @@ The following steps are considered the basic protocol of commitment-schemes and 
 \end{figure}
 
 \subsection{Attributes}
-The following attributes are required for commitment-schemes to be secure and successfully fulfill their purpose.
+The following attributes are required for commitment-schemes to be secure and successfully fulfill their purpose:
 
 \begin{enumerate}
 	\item \textbf{Binding:} The values Alice put in the commitment cannot be changed after Bob recieved it 
@@ -41,12 +47,27 @@ The following attributes are required for commitment-schemes to be secure and su
 \end{enumerate}
 Except for viability, the fulfillment of each attribute will be shortly discussed in the regarding implementations. 
 
-There are two additional attributes based on the fact that we are working with computers:
+~\newline For elaboration, the image of the box is fitting aswell: 
+
+Once locked inside the box, the message cannot be altered by Alice (or any other party). After she commits it, Alice is \textbf{bound} to the value, as there can never be a different value inside the box after this point. 
+
+Through the attributes \textit{non-transparent and unbreakable} of the box, the \textbf{hiding}-attribute of the protocol is fulfilled: Bob cannot look into the box and does not know anything about the message if he does not have the key. The only way to properly gain knowledge about the message is the key provided by Alice. 
+
+The \textbf{viability} is given, as \textbf{only} the (correct) key will open the box. The correct key will always open the regarding boy, and no other key will \textit{ever} be able to unlock the message. 
+
+~\newline There are two additional attributes based on the fact that we are working with computers:
 \begin{enumerate}
 	\item Bobs are able compare commitments.
 	\item Commitments are \textit{tradeable} and replicable - both for Alice and Bob, still keeping their primary attributes and are fully functional. This attribute is vital for the case study presented in section \ref{sec:casestudy}.
 \end{enumerate}
 
+~\newline The trading can be displayed with the box: If $Bob_1$ decides to give the box to $Bob_2$, $Bob_2$ is also unable to read or open it. Alice can now also contact $Bob_2$ with the key and the message, to which $Bob_2$ can open the box and compare the message, just like $Bob_1$ would do. 
+
+Also Alice is able to trade her key and message to any $Alice_2$, which enables $Alice_2$ to reveal her like the $real$ Alice would. 
+
+~\newline The ability to copy and compare commitments is not applicable to the example of the locked box. However, as most commitments rely on numbers, the \textit{real} commitment consists of bits and therefore are easily duplicated. 
+
+For the comparison it's to add, that it's possible to have the same commitment for a different combination of messages and keys. However, as the key's should be chosen randomly, these collisions are highly unlikely (in case of the hash-based implementations as likely as hash-collisions themselves). 
 \subsection{Additional Security-Measures}
 There are several \textit{best-practices} which are not functional for the protocol itself, but are necessary to secure any party involved in the protocol and any application using the protocols. They will be shortly summarized and explained: ~\newline
 
