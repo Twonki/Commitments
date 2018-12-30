@@ -1,27 +1,63 @@
 
 \section{Implementation}
-
+%Hash
 \subsection{Hash-Based Commitments}
-ToDo: Hash-Based Commitments with sources
-	
+For an easy introduction into the implementations, let's first introduce the hash-based commitments. 
+These implementations rely solely on the cryptographic attributes of their regarding hash-function, making them relatively easy to understand, as every cryptocraphic process is \textit{veiled} by a single function - leaving out complex mathematics.
+
+It's therefore important, to choose a \textbf{cryptographic hash function} (todo: Source!). A \textit{normal} hash-function does not fulfill the attributes as shown further below, and therefore cannot be used for commitments. 
+
+~\newline The basic protocol implemented with hash-functions:
 	\begin{enumerate}
 		\item Alice chooses a random value $s$
 		\item Alice produces $h = Hash(m \star s)$ and sends $h$ and $Hash$ to Bob
 		\item Bob keeps $<Alice,h,Hash>$
-		\item Alice reveals herself by sending bob $m$ and $s$
+		\item Alice reveals herself by sending Bob $m$ and $s$
 		\item Bob checks if $Hash(m \star s) \equiv h$
 	\end{enumerate}
+~\newline This implementation is parallel to the example with the box: The \textit{key} to the box is the random salt, and the message is hidden behind it. 
 
+To choose a random salt value is necessary, as the domain of the messages is usually limited. Picking up the example of the coin-toss, Alice would be only able to commit to \textit{Tail} or \textit{Head}. Without a random value, Bob (and any Eve) could simply try both values and compare to the commitment. 
+
+While the example of coin-tossing is rather trivial, even bigger example such as \textit{dates of birth} can be easily tried for multiple centuries. 
+
+Additionally, without the salt, using rainbow-tables and other dictionaries is possible. 
+
+~\newline It's also to mention that the message $m$ should never be \textit{really} valuable - as it's send in cleartext in \textit{step 4} of the implementation.  
+
+~\newline The attributes required for a correct commitment-scheme are inherited directly by the attributes of a cryptographic hash-function: 
+~\newline \textbf{Binding:} After Alice created the hash, due to the \textbf{second-pre-image resistance} of the hash-function, she won't find any second message in feasible time that produces the same hash \footnote{Bob needs to verify the used hashfunction. There are known hash-collisions to some hash-functions, which can be used to intentionally produce failures}. Therefore, she is bound to her value, as any other message would produce a different hash.  
+~\newline \textbf{Hiding:} After Bob recieved the hash, due to the \textbf{pre-image resistance} of the hash-function, the only way Bob can get to know $m$ is by trying every possible value. As mentioned above, it's necessary to add a random salt for this attribute to be guaranteed.
+
+~\newline To end this implementation, let's summarize the benefits: 
+\begin{itemize}
+	\item the implementation is easy to understand without further knowledge of mathematics
+	\item $iff$ the hash-function is cryptographic, the commitments are \textit{safe}
+	\item it's possible to commit \textit{words} as messages, unlike other hash-functions, enabling \textit{human-readable} examples  
+\end{itemize} 
+
+%Pedersen
 \subsection{Pedersen Commitments}
-ToDo: Pedersen Commitments with sources
-SetUp:
+Instead of using hash-functions for their functionality, the pedersen-commitments gain their security from the un-feasability to extract roots from a finite body build by two (large) prime numbers. This assumption is the so called \textit{discrete-log}-assumption. 
+
+~\newline Unlike the hashfunction, there is a bigger setup Bob needs to do before the main-protocol begins: 
 	\begin{enumerate}
-		\item choosing a large prime number p
-		\item choosing a smaller prime number $q \in \{1..p| q\div (p-1) = 0\}$
+		\item choosing a large prime number $p$
+		\item choosing a smaller prime number \newline $q \in \{1..p| q\div (p-1) = 0\}$
 		\item choosing $g,v \in G_q \neq 1$
 		\item sending Alice $p,q,g,v$ 
 	\end{enumerate}
-Protocoll: 
+~\newline With these steps, Alice and Bob are sure to operate in the same finite body, which can be checked for \textit{computational safeness}. The produces $g$ is often called the $generator$, the $v$ often $valitador$.
+
+Choosing the body can also be done by Alice, which would drastically benefit her, as she can purposely choose generators and validators which would enable her to construct non-unique commitments. 
+
+As a simplified example, Alice could choose the same $g$ and $v$, making it possible for her to switch message and salt at will, while successfully revealing her commitment. 
+
+Even if Bob notices $g=v$, and rejects these kind of tricks, Alice is able to produce variables for certain collisions, which Bob can only notice with brute-forcing. 
+
+Therefore it's common for Bob to choose the body, as he is not about to commit values. If Alice notices problems with the safety of the given numbers, she can reject the communication.  
+
+~\newline The implementation of the pedersen-commitments: 
 	\begin{enumerate}
 		\item Alice requests $p,q,g,v$ from Bob. \newline Alice checks that:
 		\begin{itemize}
@@ -34,6 +70,12 @@ Protocoll:
 		\item Bob keeps $<Alice,c,<p,q,g,v>>$
 		\item Alice can reveal herself by sending $r,m$ to Bob. ~\newline Bob checks $c = g^rv^m$
 	\end{enumerate}
+
+The primary benefits of the pedersen-commitments are the following: 
+\begin{itemize}
+	\item the commitments always contain random parts
+	\item the computational security can easily be increased by choosing bigger prime-numbers
+\end{itemize}
 
 \subsection{Quadratic-Residues}
 Iff i need more content
