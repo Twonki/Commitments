@@ -5,7 +5,7 @@
 For an easy introduction into the implementations, let's first introduce the hash-based commitments. 
 These implementations rely solely on the cryptographic attributes of their regarding hash-function, making them relatively easy to understand, as every cryptocraphic process is \textit{veiled} by a single function - leaving out complex mathematics.
 
-It's therefore important, to choose a \textbf{cryptographic hash function} (todo: Source!). A \textit{normal} hash-function does not fulfill the attributes as shown further below, and therefore cannot be used for commitments. 
+It's therefore important, to choose a \textbf{cryptographic hash function} (see \cite{DeHa15} section 2.2.1). A \textit{normal} hash-function does not fulfill the attributes as shown further below, and therefore cannot be used for commitments. 
 
 ~\newline The basic protocol implemented with hash-functions:
 	\begin{enumerate}
@@ -26,8 +26,8 @@ Additionally, without the salt, using rainbow-tables and other dictionaries is p
 ~\newline It's also to mention that the message $m$ should never be \textit{really} valuable - as it's send in cleartext in \textit{step 4} of the implementation.  
 
 ~\newline The attributes required for a correct commitment-scheme are inherited directly by the attributes of a cryptographic hash-function: 
-~\newline \textbf{Binding:} After Alice created the hash, due to the \textbf{second-pre-image resistance} of the hash-function, she won't find any second message in feasible time that produces the same hash \footnote{Bob needs to verify the used hashfunction. There are known hash-collisions to some hash-functions, which can be used to intentionally produce failures}. Therefore, she is bound to her value, as any other message would produce a different hash.  
-~\newline \textbf{Hiding:} After Bob recieved the hash, due to the \textbf{pre-image resistance} of the hash-function, the only way Bob can get to know $m$ is by trying every possible value. As mentioned above, it's necessary to add a random salt for this attribute to be guaranteed.
+~\newline \textbf{Binding:} After Alice created the hash, due to the \textbf{second-pre-image resistance} (see \cite{DeHa15} section 2.2.1 proposition 2.11) of the hash-function, she won't find any second message in feasible time that produces the same hash \footnote{Bob needs to verify the used hashfunction. There are known hash-collisions to some hash-functions, which can be used to intentionally produce failures}. Therefore, she is bound to her value, as any other message would produce a different hash.  
+~\newline \textbf{Hiding:} After Bob recieved the hash, due to the \textbf{pre-image resistance} (see \cite{DeHa15} section 2.2.1 proposition 2.12)of the hash-function, the only way Bob can get to know $m$ is by trying every possible value. As mentioned above, it's necessary to add a random salt for this attribute to be guaranteed.
 
 ~\newline To end this implementation, let's summarize the benefits: 
 \begin{itemize}
@@ -38,7 +38,11 @@ Additionally, without the salt, using rainbow-tables and other dictionaries is p
 
 %Pedersen
 \subsection{Pedersen Commitments}
-Instead of using hash-functions for their functionality, the pedersen-commitments gain their security from the un-feasability to extract roots from a finite body build by two (large) prime numbers. This assumption is the so called \textit{discrete-log}-assumption. 
+Instead of using hash-functions for their functionality, the pedersen-commitments gain their security from the un-feasability to extract roots from a finite body build by two (large) prime numbers (see \cite{b2} Algorithm A.40 paragraph 2). This assumption is also known as the decision diffie-hellman problem and is used for other common cryptographic protocols, such as the ElGamal-encryption (see \cite{b1} section 4.1). 
+
+Even tough \textit{finding} these roots is as good as guessing (see \cite{b1} section 3.4 corollary 3.5) if not every required element is known, if the prime numbers are known verifying the result is trivial. 
+
+Producing cypher-texts firsthand is also an easy task for Alice. 
 
 ~\newline Unlike the hashfunction, there is a bigger setup Bob needs to do before the main-protocol begins: 
 	\begin{enumerate}
@@ -71,11 +75,46 @@ Therefore it's common for Bob to choose the body, as he is not about to commit v
 		\item Alice can reveal herself by sending $r,m$ to Bob. ~\newline Bob checks $c = g^rv^m$
 	\end{enumerate}
 
-The primary benefits of the pedersen-commitments are the following: 
+~\newline The \textbf{Hiding} is fulfilled with the discrete-log assumption, as noone who recieves the tupel $<p,q,g,v>$ can find the $r,m$ which produce $c$, without guessing or computing every possibility. Given large prime numbers, this is computational impossible. 
+~\newline The \textbf{Binding}-attribute is only partly fulfilled: As shown above, if Alice would have the power to choose $<p,q,g,v>$ she would be able to produce a lot of collisions. It's still possible for her to find collisions on purpose, if Bob has chosen the finite body. 
+
+However, if Bob has chosen large prime-numbers and distinct $g,v$, he can be relatively safe, as Alice will have troubles finding these collisions in reasonable time. This implementation can still be considered \textit{pro-Alice}, as she is put in a more powerful position.    
+
+~\newline The primary benefits of the pedersen-commitments are the following: 
 \begin{itemize}
 	\item the commitments always contain random parts
 	\item the computational security can easily be increased by choosing bigger prime-numbers
 \end{itemize}
-
+%QR
 \subsection{Quadratic-Residues}
-Iff i need more content
+Another implementation of commitment-schemes is based on quadratic residues in an finite body. In this scheme, Alice commits herself to a single bit (for reference, see \cite{DeHa15} section 4.3.1). 
+
+~\newline The basic idea is to produce a finite body of size $n = p \cdot q $ where $p,q \in Primes$. A number $v$ of this body is quadratic if and only if it's quadratic in both $p$ and $q$. To commit to $true$, Alice sends $n$ and $v$, but\textbf{ not $p$ and $q$}, and chooses a quadratic $v$. If she wants to commit to false, she sends a non-quadratic $v$. 
+
+~\newline While it's easy to compute whether a given number is quadratic in a prime using the \textit{legendre symbol} $(\dfrac{v}{p})$ (see \cite{PrGloLeg}), it's not possible to simply compute whether a number is quadratic in the product of two primes, except if both primes are known. 
+
+~\newline Given any number $v \in \mathcal{Z}_n$, one could guess that is not a quadratic residue - this holds true for 75\% of all cases. 
+
+As this makes \textit{guessing} the commitment better than simply guessing $true$ or $false$, we need to implement an additional security measure: The value $v$ must be chosen from the numbers in $n$, which have a positive Jakobi-Symbol (see \cite{PrGloJak}). 
+
+Despite additional mathematic attributes, the Jakobi-Symbol can be simplified as the product of legendre-symbols, defining $(\dfrac{v}{n})= (\dfrac{v}{p})\cdot (\dfrac{v}{q})$.
+
+There are two cases, in which the Jakobi-Symbol is positive: The value $v$ is quadratic in \textbf{both} $q$ and $p$, or the value $v$ is \textbf{not} quadratic in \textbf{both} $q$ and $p$. 
+
+Thanks to this addition, \textit{guessing} whether a given value $v$ where $v \in J_n^{+1}$ is quadratic in $n$ has a chance of 50\% and is therefore not better than guessing $true$ or $false$. 
+
+~\newline The only way to successfully calculate instead of guessing is to find one of the prime numbers by trying, which is not feasible given large prime numbers.
+
+~\newline Based on these mathematical procedures, the protocol works as follows:
+\begin{enumerate}
+	\item Alice chooses primes $p,q$ and an element $v \in \{ x \in J_n^{+1}\}$ 
+	\item Alice commits to a bit b by choosing a random number $r$ and sending Bob: $n,v$ and $c = r^2\cdot v^b$
+	\item Bob verifies that $(\dfrac{v}{n})=1$ and keeps $<Alice,n,v,c>$
+	\item Alice reveals herself by sending Bob $p,q,r,b$
+	\item Bob verifies that $p,q$ are primes, $n=pq$ and $c=r^2\cdot v^b$ 
+\end{enumerate}
+This protocol enhances the above assumptions by hiding the real value and it's quadracy behind a random value $r$. Therefore the verification is a little more complex. 
+~\newline
+If A wants to commit a quadratic residue, she chooses a quadratic $v$ and $b=1$, therefore $r^2 \cdot v^1$ will be quadratic ~\newline
+If a wants to commit a non-quadratic value, she chooses a non-quadratic $v$ and $b=0$, therefore $r^2 \cdot v^0 = r^2$ which is quadratic ~\newline
+If $v$'s actual quadracy and $b$ do not match, $c$ won't be quadratic and therefore rejected by Bob. 
