@@ -1,15 +1,15 @@
 \section{Introduction}
 The Internet is a land of mistrust for good reasons, yet it's often required to trust each other. 
 
-A common example for the use of commitment-schemes is the \textit{coin-toss via telephone}: Alice declares her call, and Bob tosses the coin. However, Alice is unable to \textit{see} the real coin-toss and relies on Bobs righteousness - which is a pretty bad idea. 
+A common example for the use of commitment-schemes is the \textit{coin-toss by telephone}: Alice declares her call, and Bob tosses the coin. However, Alice is unable to \textit{see} the real coin-toss and relies on Bobs righteousness - which is a pretty bad idea. 
 
 Evil Bobs can simply declare the wrong toss for Alice' call, making her loose every single time. Overall Bob can manipulate the outcome easily by choice with his knowledge of Alice' call. 
 
-Therefore Alice needs to hide her prediction. A simple way of \textit{saving} Alice from manipulation is that Alice declares her call \textit{after} Bob announces the coin-toss-outcome. Needless to say, now Alice is in the position to make her calls in her favor every time, which is not acceptable for Bob. 
+Therefore Alice needs to hide her prediction. A naive way of \textit{saving} Alice from manipulation is that Alice declares her call \textit{after} Bob announces the coin-toss-outcome. Needless to say, now Alice is in the position to make her calls in her favor every time, which is not acceptable for Bob. 
 
-~\newline Commitment-schemes enable both parties to a \textit{fair-play} and tools to detect manipulation creating relative trust. In a successful commitment, Alice hides her guess with kryptographic measures and sends it to Bob. Bob then declares the coin-toss to Alice, without knowledge of her call. At this point Alice knows, if she has won or lost, and enables Bob to read her guess by sending the required keys for decryption.
+~\newline Commitment-schemes enable both parties to \textit{fair-play} and tools to detect manipulation creating relative trust. In a successful commitment, Alice hides her guess with kryptographic measures and sends it to Bob. Bob then declares the coin-toss to Alice, without knowledge of her call. At this point Alice knows, if she has won or lost, and enables Bob to read her guess by sending the required keys for decryption.
 
-At this point both parties know the \textit{real} outcome and the real winner of the coin toss. The measures if any manipulation is detected are beyond this protocol.
+At this point both parties know the \textit{real} outcome and the real winner of the coin toss. The measures if any manipulation is detected are beyond this primitive.
 
 ~\newline There are several cases where commitment-schemes are commonly used, for example in \textit{challenge and response}-authentication, whereof a simple example is provided at the end of this paper in section \ref{sec:casestudy}.
 
@@ -38,7 +38,7 @@ If the key \textit{fits}, Bob is able to unlock the box in \textit{step 4} and c
 \end{figure}
 
 \subsection{Attributes}
-The following attributes are required for commitment-schemes to be secure and successfully fulfill their purpose:
+The following attributes are required for commitment-schemes (see \cite{DeHa15} \textit{protocoll 4.10} paragraph 4f) to be secure and successfully fulfill their purpose:
 
 \begin{enumerate}
 	\item \textbf{Binding:} The values Alice put in the commitment cannot be changed after Bob recieved it 
@@ -47,13 +47,13 @@ The following attributes are required for commitment-schemes to be secure and su
 \end{enumerate}
 Except for viability, the fulfillment of each attribute will be shortly discussed in the regarding implementations. 
 
-~\newline For elaboration, the image of the box is fitting aswell: 
+~\newline These attributes can also be shown applied to the box: 
 
 Once locked inside the box, the message cannot be altered by Alice (or any other party). After she commits it, Alice is \textbf{bound} to the value, as there can never be a different value inside the box after this point. 
 
-Through the attributes \textit{non-transparent and unbreakable} of the box, the \textbf{hiding}-attribute of the protocol is fulfilled: Bob cannot look into the box and does not know anything about the message if he does not have the key. The only way to properly gain knowledge about the message is the key provided by Alice. 
+Through the virtual properties \textit{non-transparent and unbreakable} of the box, the \textbf{hiding}-attribute of the protocol is fulfilled: Bob cannot look into the box and does not know anything about the message if he does not have the key. The only way to properly gain knowledge about the message is the key provided by Alice. 
 
-The \textbf{viability} is given, as \textbf{only} the (correct) key will open the box. The correct key will always open the regarding boy, and no other key will \textit{ever} be able to unlock the message. 
+The \textbf{viability} is given, as \textbf{only} the (correct) key will open the box. The correct key will always open the regarding box, and no other key will \textit{ever} be able to unlock the message. 
 
 ~\newline There are two additional attributes based on the fact that we are working with computers:
 \begin{enumerate}

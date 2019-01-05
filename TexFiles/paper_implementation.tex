@@ -5,7 +5,7 @@
 For an easy introduction into the implementations, let's first introduce the hash-based commitments. 
 These implementations rely solely on the cryptographic attributes of their regarding hash-function, making them relatively easy to understand, as every cryptocraphic process is \textit{veiled} by a single function - leaving out complex mathematics.
 
-It's therefore important, to choose a \textbf{cryptographic hash function} (see \cite{DeHa15} section 2.2.1). A \textit{normal} hash-function does not fulfill the attributes as shown further below, and therefore cannot be used for commitments. 
+It's therefore important, to choose a \textbf{cryptographic hash function} ( see \cite{DeHa15} section 2.2.1 ). A \textit{normal} hash-function does not fulfill the attributes as shown further below, and therefore cannot be used for commitments. 
 
 ~\newline The basic protocol implemented with hash-functions:
 	\begin{enumerate}
@@ -25,9 +25,9 @@ Additionally, without the salt, using rainbow-tables and other dictionaries is p
 
 ~\newline It's also to mention that the message $m$ should never be \textit{really} valuable - as it's send in cleartext in \textit{step 4} of the implementation.  
 
-~\newline The attributes required for a correct commitment-scheme are inherited directly by the attributes of a cryptographic hash-function: 
-~\newline \textbf{Binding:} After Alice created the hash, due to the \textbf{second-pre-image resistance} (see \cite{DeHa15} section 2.2.1 proposition 2.11) of the hash-function, she won't find any second message in feasible time that produces the same hash \footnote{Bob needs to verify the used hashfunction. There are known hash-collisions to some hash-functions, which can be used to intentionally produce failures}. Therefore, she is bound to her value, as any other message would produce a different hash.  
-~\newline \textbf{Hiding:} After Bob recieved the hash, due to the \textbf{pre-image resistance} (see \cite{DeHa15} section 2.2.1 proposition 2.12)of the hash-function, the only way Bob can get to know $m$ is by trying every possible value. As mentioned above, it's necessary to add a random salt for this attribute to be guaranteed.
+~\newline The attributes required for a correct commitment-scheme are inherited directly by the attributes of a cryptographic hash-function (see \cite{Mironov05} section 4.1 paragraph 3f): 
+~\newline \textbf{Binding:} After Alice created the hash, due to the \textbf{second-pre-image resistance} (see \cite{DeHa15} section 2.2.1 proposition 2.11 ) of the hash-function, she won't find any second message in feasible time that produces the same hash \footnote{Bob needs to verify the used hashfunction. There are known hash-collisions to some hash-functions, which can be used to intentionally produce failures}. Therefore, she is bound to her value, as any other message would produce a different hash.  
+~\newline \textbf{Hiding:} After Bob recieved the hash, due to the \textbf{pre-image resistance} (see \cite{DeHa15} section 2.2.1 proposition 2.12 )of the hash-function, the only way Bob can get to know $m$ is by trying every possible value. As mentioned above, it's necessary to add a random salt for this attribute to be guaranteed.
 
 ~\newline To end this implementation, let's summarize the benefits: 
 \begin{itemize}
@@ -38,7 +38,7 @@ Additionally, without the salt, using rainbow-tables and other dictionaries is p
 
 %Pedersen
 \subsection{Pedersen Commitments}
-Instead of using hash-functions for their functionality, the pedersen-commitments gain their security from the un-feasability to extract roots from a finite body build by two (large) prime numbers (see \cite{b2} Algorithm A.40 paragraph 2). This assumption is also known as the decision diffie-hellman problem and is used for other common cryptographic protocols, such as the ElGamal-encryption (see \cite{b1} section 4.1). 
+Instead of using hash-functions for their functionality, the pedersen-commitments (See \cite{Ped01} section 3 ) gain their security from the un-feasability to extract roots from a finite body build by two (large) prime numbers (see \cite{DeHa15} Algorithm A.40 paragraph 2). This assumption is also known as the decision diffie-hellman problem and is used for other common cryptographic protocols, such as the ElGamal-encryption (see \cite{b1} section 4.1 ). 
 
 Even tough \textit{finding} these roots is as good as guessing (see \cite{b1} section 3.4 corollary 3.5) if not every required element is known, if the prime numbers are known verifying the result is trivial. 
 
@@ -87,7 +87,7 @@ However, if Bob has chosen large prime-numbers and distinct $g,v$, he can be rel
 \end{itemize}
 %QR
 \subsection{Quadratic-Residues}
-Another implementation of commitment-schemes is based on quadratic residues in an finite body. In this scheme, Alice commits herself to a single bit (for reference, see \cite{DeHa15} section 4.3.1). 
+Another implementation of commitment-schemes is based on quadratic residues in an finite body, first introduced by Manuel Blum in 1982 (See \cite{Blum82}) and therefore (by far) the oldest commitment-scheme. In this scheme, Alice commits herself to a single bit (for reference, see \cite{DeHa15} section 4.3.1). 
 
 ~\newline The basic idea is to produce a finite body of size $n = p \cdot q $ where $p,q \in Primes$. A number $v$ of this body is quadratic if and only if it's quadratic in both $p$ and $q$. To commit to $true$, Alice sends $n$ and $v$, but\textbf{ not $p$ and $q$}, and chooses a quadratic $v$. If she wants to commit to false, she sends a non-quadratic $v$. 
 
