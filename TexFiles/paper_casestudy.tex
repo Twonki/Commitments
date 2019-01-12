@@ -7,9 +7,9 @@ This example describes how a one-time authentication for a web-application can b
 
 There are common examples and closed-source libraries which enable developers to implement these features easily, however to keep this paper neutral, only the concept will be shown without going further into detail of several implementations. 
 
-~\newline User-Privileges in web-applications are commonly granted by setting regarding attributes in the session-cookie. As the session-cookie is in the hands of a possibly malevolent user, one of the main-security-measures is to certify the cookie by the server.This behaviour is similiar to the H-MAC (See \cite{BeCaKra96} section \textit{the rational} paragraph 3ff ) signing messages in common message exchange applied to cookies. 
+~\newline User-Privileges in web-applications are commonly granted by setting regarding attributes in the session-cookie. As the session-cookie is in the hands of a possibly malevolent user, one of the main-security-measures is to certify the cookie by the server.This behaviour is similiar to the H-MAC (\cite{BeCaKra96} section \textit{the rational} paragraph 3ff ) signing messages in common message exchange applied to cookies. 
 
-As the host usually verifies the cookie in every transaction, he is safe for two main attacks: The user can not create his own cookie, and he cannot alter given cookies. The only way to recieve a certified session-cookie is through a successful login.
+As the host usually verifies the cookie in every transaction, he is safe for two main attacks: The user can not create his own cookie, and he cannot alter given cookies. The only way to receive a certified session-cookie is through a successful login.
 
 ~\newline Creating a safe login seems like an easy task - but is in itself one of the most important and maintenance-intensive parts of every web-page. Hardening the page, keeping everything up to date and enforce principles such as \textit{Layered Security} (See \cite{Den12} for further reading) requires not only knowledge but time. Therefore simplifying login-procedures, especial for distributed web-applications is a primary goal of web-development. 
 
@@ -45,7 +45,7 @@ After Bob-2 successfully received the two messages, he can challenge Alice to re
 
 She is now able to interact with Bob-2 as if he would have had an usual login.
 
-Most of this protocol can be simply done by user-scripts running in background - it's not required for Alice to enter any random numbers manually. These variables can be migrated with the browsercache. The Challenge can also be requested and resolved fully automaticly, creating the user-experience of a connected web-page.  
+Most of this protocol can be simply done by user-scripts running in background - it's not required for Alice to enter any random numbers manually. These variables can be migrated with the browser-cache. The Challenge can also be requested and resolved fully automatically, creating the user-experience of a connected web-page.  
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=0.6\linewidth]{Images/UseCaseThree}
